@@ -1,5 +1,22 @@
 'use strict';
 
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'smartgreenadapt'
+});
+
+connection.connect();
+
+var options = {
+    clientId: 'mqtthp'
+}
+
+var mqtt = require('mqtt');
+var client = mqtt.connect('mqtt://localhost:1883', options);
+
 
 /**
  * Eliminación de datos de temperatura.
@@ -10,27 +27,39 @@
  * returns String
  **/
 module.exports.deleteTemperature = function(req, res, next) {
-    //Parameters
-    console.log(req);
-    res.send({
-        message: 'This is the mockup controller for deleteTemperature'
+
+    console.log("Delete temperature data");
+    var query = 'DELETE FROM Temperature WHERE id = ?';
+
+    connection.query(query, [req.idTemperature.originalValue], function (error, result) {
+        if (error) throw error;
+
+        res.send({
+            message: result
+        });
     });
 };
 
 
 /**
- * Devuelve todos los datos relacionados con la temperatura.
- * Devuelve todos los datos relacionados con la temperatura.
+ * Devuelve todos la temperatura de una fecha concreta.
+ * Devuelve todos la temperatura de una fecha concreta.
  *
  * date String Fecha de la recogida de la información
 
  * returns String
  **/
 module.exports.getTemperature = function(req, res, next) {
-    //Parameters
-    console.log(req);
-    res.send({
-        message: 'This is the mockup controller for getTemperature'
+    console.log("get temperature data");
+
+    var query = 'SELECT * FROM Temperature WHERE date = ?';
+
+    connection.query(query, [req.date.originalValue], function (error, results) {
+        if (error) throw error;
+
+        res.send({
+            message: results
+        });
     });
 };
 
@@ -44,10 +73,41 @@ module.exports.getTemperature = function(req, res, next) {
  * returns String
  **/
 module.exports.postTemperature = function(req, res, next) {
-    //Parameters
-    console.log(req);
-    res.send({
-        message: 'This is the mockup controller for postTemperature'
+    console.log("Post temperature data");
+
+    var query = 'INSERT INTO Temperature SET ?';
+    var date = new Date();
+
+    var data = {
+        amount: Number((req.undefined.originalValue.amount).toFixed(2)),
+        date: date
+    }
+
+    connection.query(query, [data], function (error, results) {
+        if (error) throw error;
+
+        res.send({
+            message: results
+        });
+    });
+
+    /**
+     * MQTT
+     */
+
+    client.on('connect', function () {
+
+        let options = {
+            retain: true,
+            qos: 1
+        };
+        if (client.connected === true) {
+            client.publish('temperature', req.undefined.originalValue.amount.toString(), options);
+        }
+    });
+
+    client.on('error', function (error) {
+        console.log('Error, cannot connect to MQTT ' + error);
     });
 };
 
@@ -61,13 +121,19 @@ module.exports.postTemperature = function(req, res, next) {
  * returns String
  **/
 module.exports.putTemperature = function(req, res, next) {
-    //Parameters
-    console.log(req);
-    res.send({
-        message: 'This is the mockup controller for putTemperature'
+    console.log("Put temperature data");
+
+    var query = 'UPDATE Temperature SET ? WHERE id = ?';
+    var data = {
+        amount: Number((req.undefined.originalValue.amount).toFixed(2)),
+        date: req.undefined.originalValue.date
+    }
+
+    connection.query(query, [data, req.undefined.originalValue.idTemperature], function (error, results) {
+        if (error) throw error;
+
+        res.send({
+            message: results
+        });
     });
 };
-
-
-
-

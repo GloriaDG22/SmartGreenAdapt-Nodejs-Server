@@ -1,8 +1,3 @@
-
-
-
-
-
 'use strict';
 
 var Notificacion = require('../service/NotificacionService');

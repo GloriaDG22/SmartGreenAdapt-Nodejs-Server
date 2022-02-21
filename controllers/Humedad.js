@@ -1,8 +1,3 @@
-
-
-
-
-
 'use strict';
 
 var Humedad = require('../service/HumedadService');

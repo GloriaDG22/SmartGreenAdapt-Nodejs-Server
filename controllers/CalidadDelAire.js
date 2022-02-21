@@ -1,8 +1,3 @@
-
-
-
-
-
 'use strict';
 
 var CalidadDelAire = require('../service/CalidadDelAireService');

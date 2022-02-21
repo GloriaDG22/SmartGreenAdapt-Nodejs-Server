@@ -1,4 +1,4 @@
-#CREATE DATABASE SmartGreenAdapt;
+CREATE DATABASE SmartGreenAdapt;
 USE SmartGreenAdapt;
 CREATE TABLE AirQuality (
 	id INT NOT NULL AUTO_INCREMENT,
@@ -30,7 +30,7 @@ CREATE TABLE Temperature (
     date TIMESTAMP,
     PRIMARY KEY(id)    
 );
-CREATE TABLE WEATHER (
+CREATE TABLE Weather (
 	id INT NOT NULL AUTO_INCREMENT,
     state VARCHAR(10),  
     temp DECIMAL(4,2),

@@ -1,8 +1,3 @@
-
-
-
-
-
 'use strict';
 
 var Temperatura = require('../service/TemperaturaService');
