@@ -762,7 +762,7 @@ components:
   schemas:
     AirQuality:
       example:
-        date: 01/10/2019
+        date: "2019-01-10 13:12:35"
         amount: 45.5
         idAirQuality: 1
       properties:
@@ -774,13 +774,13 @@ components:
           example: 45.5
           type: number
         date:
-          example: 01/10/2019
+          example: "2019-01-10 13:12:35"
           type: string
       type: object
     Luminosity:
       example:
         idLuminosity: 1
-        date: 01/10/2019
+        date: "2019-01-10 13:12:35"
         amount: 45.5
       properties:
         idLuminosity:
@@ -791,12 +791,12 @@ components:
           example: 45.5
           type: number
         date:
-          example: 01/10/2019
+          example: "2019-01-10 13:12:35"
           type: string
       type: object
     Notification:
       example:
-        date: 01/10/2019
+        date: "2019-01-10 13:12:35"
         amount: 45.5
         idNotification: 1
       properties:
@@ -808,12 +808,12 @@ components:
           example: 45.5
           type: number
         date:
-          example: 01/10/2019
+          example: "2019-01-10 13:12:35"
           type: string
       type: object
     Humidity:
       example:
-        date: 01/10/2019
+        date: "2019-01-10 13:12:35"
         idHumidity: 1
         amount: 45.5
       properties:
@@ -825,12 +825,12 @@ components:
           example: 45.5
           type: number
         date:
-          example: 01/10/2019
+          example: "2019-01-10 13:12:35"
           type: string
       type: object
     Temperature:
       example:
-        date: 01/10/2019
+        date: "2019-01-10 13:12:35"
         idTemperature: 1
         amount: 45.5
       properties:
@@ -842,6 +842,7 @@ components:
           example: 45.5
           type: number
         date:
-          example: 01/10/2019
+          example: "2019-01-10 13:12:35"
           type: string
       type: object
+

@@ -76,7 +76,10 @@ module.exports.postTemperature = function(req, res, next) {
     console.log("Post temperature data");
 
     var query = 'INSERT INTO Temperature SET ?';
-    var date = new Date();
+    var date;
+
+    if (!req.undefined.originalValue.date) date = new Date();
+    else date = req.undefined.originalValue.date;
 
     var data = {
         amount: Number((req.undefined.originalValue.amount).toFixed(2)),
@@ -107,7 +110,9 @@ module.exports.postTemperature = function(req, res, next) {
     });
 
     client.on('error', function (error) {
-        console.log('Error, cannot connect to MQTT ' + error);
+        /** TODO no fuciona mqtt
+         *  console.log('Error, cannot connect to MQTT ' + error);
+         */
     });
 };
 
@@ -126,7 +131,7 @@ module.exports.putTemperature = function(req, res, next) {
     var query = 'UPDATE Temperature SET ? WHERE id = ?';
     var data = {
         amount: Number((req.undefined.originalValue.amount).toFixed(2)),
-        date: req.undefined.originalValue.date
+        date: req.undefined.originalValue.date.toString()
     }
 
     connection.query(query, [data, req.undefined.originalValue.idTemperature], function (error, results) {
